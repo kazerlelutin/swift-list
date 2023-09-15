@@ -1,4 +1,4 @@
-import { createClient } from '@vercel/postgres'
+const { createClient } = require('@vercel/postgres')
 
 const supermarketSections = [
   {
