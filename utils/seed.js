@@ -235,6 +235,16 @@ async function seedDatabase() {
     console.log('Seed réussi')
   } catch (err) {
     console.error('Erreur lors du seed :', err)
+  } finally {
+    try {
+      await client.end()
+      console.log('Connexion à la base de données fermée')
+    } catch (e) {
+      console.error(
+        'Erreur lors de la fermeture de la connexion à la base de données :',
+        e
+      )
+    }
   }
 }
 
