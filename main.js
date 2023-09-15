@@ -3,7 +3,7 @@ import './globals.css'
 import { App } from './pages/app'
 import { Hello } from './pages/hello'
 
-m.route.prefix = ''
+//m.route.prefix = ''
 
 m.route(document.body, '/', {
   '/': App,
