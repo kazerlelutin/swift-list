@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import { createClient } from '@vercel/postgres'
 
 const supermarketSections = [
@@ -233,8 +235,6 @@ async function seedDatabase() {
     console.log('Seed réussi')
   } catch (err) {
     console.error('Erreur lors du seed :', err)
-  } finally {
-    await client.end()
   }
 }
 
