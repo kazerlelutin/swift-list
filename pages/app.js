@@ -1,13 +1,10 @@
 import m from 'mithril'
 import { Counter } from '../components/count'
+import { Layout } from '../components/layout'
 
 export const App = {
   view() {
-    const className = 'text-red-600 text-lg'
-    return m('h1', { class: className }, [
-      'Try dme out ',
-      m(m.route.Link, { href: '/test' }, 'Aller à la page de test'),
-      m(Counter),
-    ])
+    const className = 'bg-red-600'
+    return m(Layout, { class: className }, [m(Counter)])
   },
 }
