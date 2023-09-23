@@ -16,8 +16,9 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
-    "@vercel/postgres": "^0.4.1",
+    "@vercel/analytics": "^1.0.2",
     "dotenv": "^16.3.1",
-    "mithril": "^2.2.2"
+    "mithril": "^2.2.2",
+    "mysql": "^2.18.1"
   }
 }

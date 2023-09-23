@@ -1,21 +1,8 @@
 import m from 'mithril'
 import { config } from '../utils/config'
 import { Hamburger } from '../icons/hamburger'
-
-const links = [
-  {
-    name: 'Home',
-    href: '/',
-  },
-  {
-    name: 'Mes listes',
-    href: '/about',
-  },
-  {
-    name: 'Contact',
-    href: '/contact',
-  },
-]
+import { MenuLink } from './menu-link'
+import { routes } from '../main'
 
 export const Menu = {
   oninit() {
@@ -28,11 +15,19 @@ export const Menu = {
       m.redraw() // Redessine la vue lorsque la taille de la fenêtre change
     }
     window.addEventListener('resize', this.resize)
+
+    // Liez la méthode onLinkClick à l'objet du composant
+    this.onLinkClick = this.onLinkClick.bind(this)
   },
 
   onremove() {
     window.removeEventListener('resize', this.resize)
   },
+  onLinkClick() {
+    // On ferme le menu lorsqu'on clique sur un lien, mais seulement sur mobile
+    this.isClose = this.isMobile
+  },
+
   view() {
     return m('div', [
       // Insérer directement le SVG et appliquer des styles
@@ -48,28 +43,18 @@ export const Menu = {
         'div',
         {
           class: `${
-            this.isClose
-              ? 'left-[-100%]'
-              : 'left-0 shadow-[0_0px_30px_0px_rgba(0,0,0,0.5)]'
-          } bg-sl-bg fixed top-0 bottom-0 z-40 border-r-4 border-sl-margin ${
-            this.isMobile ? 'w-11/12' : 'w-1/4'
-          } transition-all duration-500`,
+            this.isClose ? 'left-[-100%]' : 'left-0'
+          } bg-sl-primary-bg fixed top-0 bottom-0 z-40 border-r-2 border-sl-primary transition-all duration-500`,
         },
         m(
           'div',
-          { class: 'flex flex-col gap-3 pt-14 px-4 text-2xl md:text-lg' },
-          //TODO si includes path, ajouter class active
-          links.map((link) => {
-            return m(
-              m.route.Link,
-              {
-                class: '',
-                href: link.href,
-                onclick: () => (this.isClose = true),
-              },
-              link.name
-            )
-          })
+          {
+            class:
+              'flex flex-col gap-3 pt-14 pl-4 pr-12 text-2xl md:text-lg text-sl-primary-text',
+          },
+          routes
+            .filter((link) => !!link.name)
+            .map((link) => m(MenuLink, { link, onclick: this.onLinkClick }))
         )
       ),
     ])
