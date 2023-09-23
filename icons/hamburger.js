@@ -10,7 +10,7 @@ export const Hamburger = {
           height: '1em',
           viewBox: '0 0 448 512',
 
-          class: 'fill-sl-margin w-[28px] h-auto',
+          class: 'fill-sl-accent-blue w-[28px] h-auto',
         },
         [
           m('path', {
