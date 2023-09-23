@@ -1,21 +1,26 @@
 import m from 'mithril'
 import './globals.css'
 import { App } from './pages/app'
+import { inject } from '@vercel/analytics'
 
 export const routes = [
   {
-    name: 'Home',
+    name: 'Mes listes',
     href: '/',
     Component: App,
   },
   {
-    name: 'Mes listes',
-    href: '/about',
+    href: '/list/:id',
     Component: App,
   },
   {
-    name: 'Contact',
-    href: '/contact',
+    name: 'Infos',
+    href: '/info',
+    Component: App,
+  },
+  {
+    name: 'Mentions légales',
+    href: '/legal',
     Component: App,
   },
 ]
@@ -47,3 +52,5 @@ m.route(
     {}
   )
 )
+// Inject analytics
+inject()

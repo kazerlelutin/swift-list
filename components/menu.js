@@ -52,7 +52,9 @@ export const Menu = {
             class:
               'flex flex-col gap-3 pt-14 pl-4 pr-12 text-2xl md:text-lg text-sl-primary-text',
           },
-          routes.map((link) => m(MenuLink, { link, onclick: this.onLinkClick }))
+          routes
+            .filter((link) => !!link.name)
+            .map((link) => m(MenuLink, { link, onclick: this.onLinkClick }))
         )
       ),
     ])
