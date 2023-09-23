@@ -9,6 +9,12 @@
   outline: none;
 }
 
+input {
+  outline: none;
+  border-bottom: 1px solid  theme('colors.sl.primary');
+  padding: .3rem;
+}
+
 ::-webkit-scrollbar {
   width: 3px;
 }

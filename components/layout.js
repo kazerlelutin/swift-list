@@ -34,9 +34,7 @@ export const Layout = {
         m(
           'div',
           {
-            class: `absolute top-0 left-0 bottom-0 right-0 overflow-y-auto ${
-              this.isMobile ? 'pt-12 px-3 pb-3' : 'p-2'
-            }`,
+            class: `absolute top-0 left-0 bottom-0 right-0 overflow-y-auto p-2`,
           },
           vnode.children
         )

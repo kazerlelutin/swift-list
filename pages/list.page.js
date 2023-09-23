@@ -3,13 +3,22 @@ import m from 'mithril'
 
 // Components
 import { Layout } from '../components/layout'
-import { ShopListSection } from '../components/shop-list-section'
+import { getShopListById, openDatabase } from '../utils/idb'
+import { ListFormName } from '../components/list-name.form'
 
 export const ListPage = {
-  oninit(vnode) {
-    console.log('vnode', vnode.attrs.id)
+  async oninit(vnode) {
+    await openDatabase()
+    this.list = await getShopListById(Number(vnode.attrs.id))
+    m.redraw()
   },
   view() {
+    if (!this.list)
+      return m(
+        'div',
+        { class: 'flex items-center justify-center h-full' },
+        'chargement...'
+      )
     return m(
       Layout,
       m(
@@ -28,7 +37,11 @@ export const ListPage = {
                 class:
                   'absolute top-0 right-0 left-0 bottom-0 overflow-y-auto inset-0 flex flex-col items-center',
               },
-              m('div', 'le titre')
+              m(
+                'div',
+                { class: 'px-10 w-full flex items-center justify-center' },
+                m(ListFormName, { list: this.list })
+              )
             )
           ),
           m('div', { class: 'flex justify-center' }, m('div', 'le form')),
