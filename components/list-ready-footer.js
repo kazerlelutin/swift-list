@@ -1,0 +1,53 @@
+import m from 'mithril'
+
+import { config } from '../utils/config'
+import { getShopListById, updateShopList } from '../utils/idb'
+
+import { Modal } from './modal'
+
+export const ListReadyFooter = {
+  oninit(vnode) {
+    vnode.state.open = false
+  },
+  view(vnode) {
+    const { state, attrs } = vnode
+
+    return m('div', { class: 'flex justify-between items-center gap-1' }, [
+      m(
+        'div',
+        { class: 'italic text-center text-sl-accent-blue' },
+        'Vous pouvez rayer les articles'
+      ),
+      m(
+        'button',
+        {
+          class:
+            'flex justify-center gap-2 uppercase text-sl-accent-green font-bold',
+          type: 'button',
+          onclick: () => (state.open = true), // <-- Use state here
+        },
+        'archiver'
+      ),
+      state.open &&
+        m(Modal, {
+          open: state.open,
+          onclose: () => (state.open = false), // <-- Use state here
+          action: async () => {
+            const list = await getShopListById(attrs.id)
+            await updateShopList({
+              ...list,
+              state: config.listState.archived,
+            })
+            state.open = false
+          },
+          children: m(
+            'div',
+            {
+              class: 'font-bold uppercase',
+            },
+            `Archiver la liste ?`
+          ),
+        }),
+    ])
+  },
+}

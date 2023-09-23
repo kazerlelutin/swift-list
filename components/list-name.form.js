@@ -1,28 +1,26 @@
-// Libs externes
 import m from 'mithril'
 
-// utils
-import { debounce } from '../utils/debounce'
 import { updateShopList } from '../utils/idb'
 
-export const ListFormName = {
+export const ListFormNameForm = {
   oninit(vnode) {
-    this.name = vnode.attrs.list.name
-    this.list = vnode.attrs.list
+    vnode.state.name = vnode.attrs.list.name
+    vnode.state.list = vnode.attrs.list
   },
-  saveToIDB: debounce(function () {
-    updateShopList({ ...this.list, name: this.name })
-  }, 300),
-  handleInput(e) {
-    this.name = e.target.value
-    this.saveToIDB()
+  handleInput(e, vnode) {
+    vnode.state.name = e.target.value
+    updateShopList({ ...vnode.state.list, name: e.target.value })
   },
-  view() {
-    return m('input', {
-      type: 'text',
-      value: this.name,
-      autofocus: this.list.items.length === 0,
-      oninput: this.handleInput.bind(this),
-    })
+  view(vnode) {
+    return m('div', [
+      m('label', { for: 'add-item-input' }),
+      m('input', {
+        type: 'text',
+        value: vnode.state.name,
+        autofocus: vnode.state.list.items.length === 0,
+        oninput: (e) => this.handleInput(e, vnode),
+        id: 'add-item-input',
+      }),
+    ])
   },
 }

@@ -1,12 +1,9 @@
-// Libs externes
 import m from 'mithril'
 
-// DB
-import { getShopLists, openDatabase } from '../utils/idb'
-
-// Components
-import { ShopListSection } from './shop-list-section'
 import { config } from '../utils/config'
+import { getShopLists, openDatabase, subscribe } from '../utils/idb'
+
+import { ShopListSection } from './shop-list-section'
 
 const sections = [
   {
@@ -22,11 +19,20 @@ const sections = [
     state: config.listState.archived,
   },
 ]
+
 export const ShopList = {
   lists: [],
   async oninit() {
     await openDatabase()
     this.lists = await getShopLists()
+
+    subscribe(async (payload) => {
+      if (!payload) return false
+      if (payload.model === 'shopList' && payload.type === 'delete') {
+        this.lists = await getShopLists()
+        m.redraw()
+      }
+    })
     m.redraw()
   },
 

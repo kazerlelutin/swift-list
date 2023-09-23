@@ -32,9 +32,11 @@ self.addEventListener('install', (event) => {
       return cache.addAll([
         '/',
         '/index.html',
-        '/styles/main.css',
-        '/scripts/main.js',
-        '/images/logo.png',
+        '/globals.css',
+        '/main.js',
+        '/public/logo.svg',
+        '/public/favicon.ico',
+        '/main.js',
       ])
     })
   )

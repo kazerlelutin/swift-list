@@ -1,7 +1,5 @@
-// Libs externes
 import m from 'mithril'
 
-// Components
 import { ListCard } from './list-card'
 
 export const ShopListSection = {
@@ -10,14 +8,13 @@ export const ShopListSection = {
     return m(
       'div',
       {
-        class: 'flex flex-col gap-1 items-center',
+        class: 'flex flex-col gap-2',
       },
       [
         m(
           'div',
           {
-            class:
-              'flex justify-center text-sl-accent-blue font-bold uppercase',
+            class: 'flex text-sl-accent-blue font-bold uppercase',
           },
           m('div', name)
         ),
@@ -26,7 +23,7 @@ export const ShopListSection = {
             'div',
             {
               key: list.id,
-              class: 'flex flex-col gap-2 items-center',
+              class: 'flex flex-col gap-2',
             },
             m(ListCard, { list })
           )

@@ -8,6 +8,8 @@ import './globals.css'
 import { ShopListPage } from './pages/shop-lists.page'
 import { inject } from '@vercel/analytics'
 import { ListPage } from './pages/list.page'
+import { LegalPage } from './pages/legal.page'
+import { InfoPage } from './pages/info.page'
 
 // Routes ----------------------------------------------------------------------
 export const routes = [
@@ -23,12 +25,12 @@ export const routes = [
   {
     name: 'Infos',
     href: '/info',
-    Component: ShopListPage,
+    Component: InfoPage,
   },
   {
     name: 'Mentions légales',
     href: '/legal',
-    Component: ShopListPage,
+    Component: LegalPage,
   },
 ]
 

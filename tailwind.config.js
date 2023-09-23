@@ -10,8 +10,9 @@ module.exports = {
       colors: {
         sl: {
           // Couleurs de base
-          'primary-bg': '#FFF', // Fond très foncé
+          'primary-bg': '#FFF',
           primary: '#111',
+          secondary: '#fff',
           'primary-text': '#111', // Texte blanc
 
           // Couleurs d'accent

@@ -1,7 +1,6 @@
-// Libs externes
 import m from 'mithril'
 
-// Utils
+import { dc } from '../utils/dynamic-classes'
 import { isCurrentLink } from '../utils/is-current-link'
 
 export const MenuLink = {
@@ -11,9 +10,10 @@ export const MenuLink = {
     return m(
       m.route.Link,
       {
-        class: `${
-          isCurrentLink(link.href) ? 'text-sl-accent-blue' : ''
-        } text-2xl md:text-lg`,
+        class: dc(
+          [isCurrentLink(link.href), 'text-sl-accent-blue'],
+          'text-2xl md:text-lg'
+        ),
         href: link.href,
         onclick: vnode.attrs.onclick,
       },

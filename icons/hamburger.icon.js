@@ -1,4 +1,3 @@
-// Libs externes
 import m from 'mithril'
 
 export const HamburgerIcon = {
