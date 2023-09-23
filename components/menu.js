@@ -1,8 +1,15 @@
+// Libs externes
 import m from 'mithril'
+
+// Utils
 import { config } from '../utils/config'
-import { Hamburger } from '../icons/hamburger'
-import { MenuLink } from './menu-link'
 import { routes } from '../main'
+
+// Icons
+import { HamburgerIcon } from '../icons/hamburger.icon'
+
+// Components
+import { MenuLink } from './menu-link'
 
 export const Menu = {
   oninit() {
@@ -31,30 +38,42 @@ export const Menu = {
   view() {
     return m('div', [
       // Insérer directement le SVG et appliquer des styles
-      m(
-        'div',
-        {
-          class: 'fixed top-2 left-2 z-50 cursor-pointer',
-          onclick: () => (this.isClose = !this.isClose),
-        },
-        m(Hamburger)
-      ),
+      this.isMobile &&
+        m(
+          'div',
+          {
+            class: `fixed top-2 left-2 z-50 cursor-pointer`,
+            onclick: () => (this.isClose = !this.isClose),
+          },
+          m(HamburgerIcon)
+        ),
       m(
         'div',
         {
           class: `${
             this.isClose ? 'left-[-100%]' : 'left-0'
-          } bg-sl-primary-bg fixed top-0 bottom-0 z-40 border-r-2 border-sl-primary transition-all duration-500`,
+          } bg-sl-primary-bg ${
+            this.isMobile ? 'fixed top-0 bottom-0 z-40' : 'h-full'
+          } border-r-2  border-sl-primary transition-all duration-500`,
         },
         m(
           'div',
           {
-            class:
-              'flex flex-col gap-3 pt-14 pl-4 pr-12 text-2xl md:text-lg text-sl-primary-text',
+            class: `flex flex-col gap-3 ${
+              this.isMobile ? 'pt-4' : 'pt-2'
+            } pl-4 pr-12 text-2xl md:text-lg text-sl-primary-text`,
           },
+          m('img', {
+            src: '/logo.svg',
+            alt: 'logo',
+            class: 'w-12 m-auto h-auto',
+            title: 'Swift List',
+          }),
           routes
             .filter((link) => !!link.name)
-            .map((link) => m(MenuLink, { link, onclick: this.onLinkClick }))
+            .map((link) =>
+              m(MenuLink, { key: link.name, link, onclick: this.onLinkClick })
+            )
         )
       ),
     ])

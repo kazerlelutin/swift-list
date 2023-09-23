@@ -1,8 +1,7 @@
-/**
- * @description Liste des abonnés qui seront notifiés lors des changements dans la base de données.
- * @type {Function[]}
- */
+// Libs externes
+import m from 'mithril'
 
+// Constante -------------------------------------------------------------------
 let idb
 const subscribers = []
 const IDB_NAME = 'sl_db'
@@ -64,7 +63,7 @@ export async function notifySubscribers() {
 /**
  * @description Ouvre la base de données et la met à niveau si nécessaire.
  */
-async function openDatabase() {
+export async function openDatabase() {
   const openRequest = indexedDB.open(IDB_NAME, IDB_VERSION)
 
   return new Promise((resolve, reject) => {
@@ -120,6 +119,22 @@ export async function addShopList(shopList) {
 
   notifySubscribers()
   return result
+}
+
+/**
+ * @description Récupère toutes les listes
+ * @returns {Promise<Object>} La liste récupérée.
+ */
+export async function getShopLists() {
+  const transaction = idb.transaction([STORES.SHOP_LISTS.NAME], 'readonly')
+  const store = transaction.objectStore(STORES.SHOP_LISTS.NAME)
+  const request = store.getAll()
+
+  return await new Promise((resolve, reject) => {
+    request.onsuccess = () => resolve(request.result)
+    request.onerror = () =>
+      reject('Erreur lors de la récupération de la liste.')
+  })
 }
 
 /**

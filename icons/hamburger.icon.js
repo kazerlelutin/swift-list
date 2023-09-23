@@ -1,6 +1,7 @@
+// Libs externes
 import m from 'mithril'
 
-export const Hamburger = {
+export const HamburgerIcon = {
   view: () => {
     return m('div', [
       m(
