@@ -6,7 +6,7 @@ import { convertTxtToBase64 } from '../utils/convert-to-base64'
 
 import { Modal } from './modal'
 
-export const QrCode = {
+export const QrCodeModal = {
   async oninit() {
     const canvas = document.getElementById('qr-code')
     if (!canvas) return (state.open = false)
@@ -43,7 +43,6 @@ export const QrCode = {
         m(Modal, {
           open: state.open,
           onclose: () => (state.open = false), // <-- Use state here
-
           children: m('canvas', { id: 'qr-code' }),
         }),
     ])
