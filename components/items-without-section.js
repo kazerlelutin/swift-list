@@ -2,6 +2,7 @@ import m from 'mithril'
 
 import {
   addItems,
+  getItemByName,
   getItemByRealName,
   getShopListById,
   subscribe,
