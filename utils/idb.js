@@ -280,6 +280,13 @@ export async function getItemByRealName(realName) {
   return await getItemFromIndex(nameIndex, realName)
 }
 
+export async function getItemByName(realName) {
+  const transaction = idb.transaction([STORES.ITEMS.NAME], 'readonly')
+  const store = transaction.objectStore(STORES.ITEMS.NAME)
+  const nameIndex = store.index('name')
+  return await getItemFromIndex(nameIndex, realName)
+}
+
 /**
  * @description Met à jour un article existant.
  * @param {Object} item - L'article mis à jour.

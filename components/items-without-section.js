@@ -27,6 +27,12 @@ export const ItemsWithoutSection = {
           ...item,
           section: existItem.section,
         })
+      } else {
+        const existItem = await getItemByName(item.name)
+        newItems.push({
+          ...item,
+          section: existItem.section,
+        })
       }
     }
 
