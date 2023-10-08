@@ -1,4 +1,4 @@
-import OpenAIApi from 'openai/index.js'
+import OpenAIApi from 'openai'
 import { db } from '../utils/db.js'
 import { supermarketSections } from '../data/sections.js'
 
