@@ -1,30 +1,40 @@
+// Libs externes
 import m from 'mithril'
-import './globals.css'
-import { App } from './pages/app'
-import { inject } from '@vercel/analytics'
 
+// Styles
+import './globals.css'
+
+// Pages
+import { ShopListPage } from './pages/shop-lists.page'
+import { inject } from '@vercel/analytics'
+import { ListPage } from './pages/list.page'
+import { LegalPage } from './pages/legal.page'
+import { InfoPage } from './pages/info.page'
+
+// Routes ----------------------------------------------------------------------
 export const routes = [
   {
     name: 'Mes listes',
     href: '/',
-    Component: App,
+    Component: ShopListPage,
   },
   {
     href: '/list/:id',
-    Component: App,
+    Component: ListPage,
   },
   {
     name: 'Infos',
     href: '/info',
-    Component: App,
+    Component: InfoPage,
   },
   {
     name: 'Mentions légales',
     href: '/legal',
-    Component: App,
+    Component: LegalPage,
   },
 ]
 
+// Register service worker -----------------------------------------------------
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/utils/sw.js').then(
@@ -41,6 +51,8 @@ if ('serviceWorker' in navigator) {
   })
 }
 
+// App -------------------------------------------------------------------------
+
 m.route(
   document.body,
   '/',
@@ -52,5 +64,5 @@ m.route(
     {}
   )
 )
-// Inject analytics
+// Inject analytics ------------------------------------------------------------
 inject()

@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-export const Hamburger = {
+export const PlusIcon = {
   view: () => {
     return m('div', [
       m(
@@ -10,11 +10,11 @@ export const Hamburger = {
           height: '1em',
           viewBox: '0 0 448 512',
 
-          class: 'fill-sl-accent-blue w-[28px] h-auto',
+          class: 'fill-sl-bg-primary w-5 h-5',
         },
         [
           m('path', {
-            d: 'M0 64H448v64H0V64zM0 224H448v64H0V224zM448 384v64H0V384H448z',
+            d: 'M256 80V48H192V80 224H48 16v64H48 192V432v32h64V432 288H400h32V224H400 256V80z',
           }),
         ]
       ),

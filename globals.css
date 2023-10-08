@@ -1,3 +1,29 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+* {
+  box-sizing: border-box;
+  scrollbar-color: theme('colors.sl.primary') theme('colors.sl.primary-bg');
+  scrollbar-width: thin;
+  outline: none;
+}
+
+input {
+  outline: none;
+  border-bottom: 1px solid  theme('colors.sl.primary');
+  padding: .3rem;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: theme('colors.sl.primary-bg');
+}
+
+::-webkit-scrollbar-thumb {
+  background: theme('colors.sl.primary');
+  transition: 200ms ease-in-out;
+}

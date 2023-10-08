@@ -15,7 +15,8 @@ const createTable = async () => {
       `
       CREATE TABLE IF NOT EXISTS articles (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        nom VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        realName VARCHAR(255),
         section VARCHAR(255)
       );
     `,
