@@ -6,9 +6,35 @@ import { convertTxtToBase64 } from '../utils/convert-to-base64'
 
 import { Modal } from './modal'
 
+async function generateQrCode(vnode) {
+  const list = await getShopListById(vnode.attrs.id)
+
+  const str = list.items
+    .map((item) => {
+      return [item.realName, item.quantity, item.unity.substr(0, 2)]?.join(',')
+    })
+    .join('|')
+
+  const base = convertTxtToBase64(str)
+  const url = `${window.location.origin}/#!/import/${base}`
+
+  const canvas = document.getElementById('qr-code')
+
+  if (!canvas) return
+
+  Qr.toCanvas(canvas, url, (error) => {
+    if (error) console.error(error)
+  })
+}
+
 export const QrCode = {
   oninit(vnode) {
     vnode.state.open = false
+  },
+  oncreate(vnode) {
+    if (vnode.state.open) {
+      generateQrCode(vnode)
+    }
   },
   view(vnode) {
     const { state, attrs } = vnode
@@ -16,8 +42,7 @@ export const QrCode = {
       m(
         'button',
         {
-          class:
-            'flex justify-center gap-2 uppercase font-bold',
+          class: 'flex justify-center gap-2 uppercase font-bold',
           type: 'button',
           onclick: async () => {
             state.open = true
@@ -36,7 +61,6 @@ export const QrCode = {
             const base = convertTxtToBase64(str)
             const url = `${window.location.origin}/#!/import/${base}`
 
-            console.log(url)
             const canvas = document.getElementById('qr-code')
 
             if (!canvas) return (state.open = false)
