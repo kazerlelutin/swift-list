@@ -9,7 +9,7 @@ export const Modal = {
   },
 
   view(vnode) {
-    const { title, children, open, onclose } = vnode.attrs
+    const { title, children, open, onclose, action } = vnode.attrs
 
     if (open) {
       return m(
@@ -30,21 +30,22 @@ export const Modal = {
               children,
             ]),
             m('div', { class: 'flex justify-end gap-3 font-bold' }, [
-              m(
-                'button',
-                {
-                  class: 'text-sl-accent-green',
-                  onclick: () => this.confirm(vnode),
-                },
-                'Confirmer'
-              ),
+              action &&
+                m(
+                  'button',
+                  {
+                    class: 'text-sl-accent-green',
+                    onclick: () => this.confirm(vnode),
+                  },
+                  'Confirmer'
+                ),
               m(
                 'button',
                 {
                   class: 'text-sl-accent-red',
                   onclick: onclose,
                 },
-                'Annuler'
+                action ? 'Annuler' : 'Fermer'
               ),
             ]),
           ]

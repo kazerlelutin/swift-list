@@ -6,7 +6,6 @@ import { units } from '../data/units'
 
 import { InputNumber } from './input-number'
 import { UnitsSelector } from './units-selector'
-import { config } from '../utils/config'
 import { ValidateList } from './validate-list'
 
 export const addItemForm = {

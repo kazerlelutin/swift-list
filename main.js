@@ -10,6 +10,7 @@ import { inject } from '@vercel/analytics'
 import { ListPage } from './pages/list.page'
 import { LegalPage } from './pages/legal.page'
 import { InfoPage } from './pages/info.page'
+import { ImportPage } from './pages/import.page'
 
 // Routes ----------------------------------------------------------------------
 export const routes = [
@@ -31,6 +32,10 @@ export const routes = [
     name: 'Mentions légales',
     href: '/legal',
     Component: LegalPage,
+  },
+  {
+    href: '/import/:base',
+    Component: ImportPage,
   },
 ]
 

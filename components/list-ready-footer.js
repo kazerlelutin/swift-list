@@ -4,6 +4,7 @@ import { config } from '../utils/config'
 import { getShopListById, updateShopList } from '../utils/idb'
 
 import { Modal } from './modal'
+import { QrCode } from './qr-code'
 
 export const ListReadyFooter = {
   oninit(vnode) {
@@ -12,7 +13,8 @@ export const ListReadyFooter = {
   view(vnode) {
     const { state, attrs } = vnode
 
-    return m('div', { class: 'flex justify-between items-center gap-1' }, [
+    return m('div', { class: 'flex justify-between items-center gap-2' }, [
+      m(QrCode, { id: attrs.id }),
       m(
         'div',
         { class: 'italic text-center text-sl-accent-blue' },
@@ -26,7 +28,7 @@ export const ListReadyFooter = {
           type: 'button',
           onclick: () => (state.open = true), // <-- Use state here
         },
-        'archiver'
+        'Archiver'
       ),
       state.open &&
         m(Modal, {
