@@ -2,11 +2,30 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@font-face {
+  font-family: 'Gabarito';
+  src: url('/fonts/Gabarito-Regular.ttf') format('truetype');
+  font-weight: 300; 
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gabarito';
+  src: url('/fonts/Gabarito-Bold.ttf') format('truetype');
+  font-weight: 700; /* Black */
+  font-style: bold;
+}
+
+
 * {
   box-sizing: border-box;
   scrollbar-color: theme('colors.sl.primary') theme('colors.sl.primary-bg');
   scrollbar-width: thin;
   outline: none;
+}
+
+body {
+  font-family: 'Gabarito', sans-serif;
 }
 
 input {

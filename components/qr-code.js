@@ -17,7 +17,7 @@ export const QrCode = {
         'button',
         {
           class:
-            'flex justify-center gap-2 uppercase text-sl-accent-green font-bold',
+            'flex justify-center gap-2 uppercase font-bold',
           type: 'button',
           onclick: async () => {
             state.open = true

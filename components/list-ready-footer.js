@@ -24,7 +24,7 @@ export const ListReadyFooter = {
         'button',
         {
           class:
-            'flex justify-center gap-2 uppercase text-sl-accent-green font-bold',
+            'flex justify-center gap-2 uppercase font-bold',
           type: 'button',
           onclick: () => (state.open = true), // <-- Use state here
         },
