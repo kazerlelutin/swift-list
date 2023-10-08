@@ -8,7 +8,7 @@ export const ShopListSection = {
     return m(
       'div',
       {
-        class: 'flex flex-col gap-2',
+        class: 'flex flex-col gap-2 w-full',
       },
       [
         m(

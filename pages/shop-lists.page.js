@@ -11,7 +11,7 @@ export const ShopListPage = {
       m(
         'div',
         {
-          class: 'grid grid-rows-[1fr_auto] h-full gap-2 items-start',
+          class: 'grid grid-rows-[1fr_auto] h-full gap-2 items-start px-10',
         },
         [
           m(

@@ -37,7 +37,7 @@ export const ShopList = {
   },
 
   view() {
-    const className = 'flex flex-col gap-2 items-center'
+    const className = 'flex flex-col gap-2 items-center w-full'
     return m(
       'div',
       {
