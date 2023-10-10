@@ -23,20 +23,21 @@ export const addItemForm = {
     const items = [
       ...list.items.filter((it) => it.name !== state.item),
       {
-        name: state.item,
+        name: state.item.trim().toLowerCase(),
         section: '',
         quantity: state.quantity,
         checked: false,
-        realName: state.item,
+        realName: state.item.trim().toLowerCase(),
         unity: state.unity || units[0],
       },
     ]
     await updateShopList({
       ...list,
-      items: items.filter((item) => !!item.name),
+      items: items.filter((item) => !!item.name.toLowerCase().trim()),
     })
     state.item = ''
     state.unity = units[0]
+    state.quantity = 1
   },
 
   handleInput(e, state) {

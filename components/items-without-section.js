@@ -18,65 +18,95 @@ export const ItemsWithoutSection = {
     const list = await getShopListById(Number(listId))
     const items = list.items.filter((item) => !item.section)
     const itemsWithSection = list.items.filter((item) => item.section)
+
     if (items.length === 0) return true
 
-    const newItems = []
+    const existingItems = []
     for (const item of items) {
-      const existItem = await getItemByRealName(item.realName)
-      if (existItem) {
-        newItems.push({
+      const existItemByRealName = await getItemByRealName(item.realName)
+      const existItemByName = await getItemByName(item.name)
+
+      if (existItemByRealName) {
+        existingItems.push({
           ...item,
-          section: existItem.section,
+          section:
+            typeof existItemByRealName.section === 'string'
+              ? existItemByRealName.section
+              : existItemByRealName.section.name,
         })
-      } else {
-        const existItem = await getItemByName(item.name)
-        if (existItem) {
-          newItems.push({
-            ...item,
-            section: existItem.section,
-          })
-        }
+      } else if (existItemByName) {
+        existingItems.push({
+          ...item,
+          section:
+            typeof existItemByName.section === 'string'
+              ? existItemByName.section
+              : existItemByName.section.name,
+        })
       }
     }
 
-    const itemsToSearch = items.filter(
-      (item) => !newItems.find((it) => it.id === item.id)
-    )
-    if (itemsToSearch.length === 0) {
+    // Première passe: on ajoute les articles connus
+    if (existingItems.length > 0) {
       await updateShopList(
-        { ...list, items: [...itemsWithSection, ...newItems] },
-        'update-api'
+        {
+          ...list,
+          items: list.items.map((item) => {
+            const existingItem = existingItems.find(
+              (it) => it.name === item.name
+            )
+            if (existingItem) {
+              return {
+                ...item,
+                section: existingItem.section,
+              }
+            }
+            return item
+          }),
+        },
+        'update'
       )
-      return true
     }
 
+    // Si tous les articles sont connus, on arrête là
+    if (existingItems.length === items.length) return true
+
+    const newReqList = await getShopListById(Number(listId))
+
+    const itToSearch = newReqList.items.filter((item) => !item.section)
+    if (itToSearch.length === 0) return true
     try {
       const res = await m.request({
         method: 'POST',
         url: '/api/search',
-        body: itemsToSearch.map((item) => item.name),
+        body: itToSearch.map((item) => item.name),
       })
 
       await addItems(res)
 
       const newItemsFromAPI = res.reduce((acc, item) => {
-        const correctItem = acc.find((it) => it.name === item.realName)
-        if (correctItem) return acc
-
-        const findItem = itemsToSearch.find((it) => it.name === item.name)
-        if (!findItem) return acc
-
-        return [
-          ...acc,
-          {
-            ...findItem,
-            section: item.section,
-          },
-        ]
+        const existingItem = acc.find((it) => it.name === item.name)
+        if (existingItem) return acc
+        acc.push(item)
+        return acc
       }, [])
 
       await updateShopList(
-        { ...list, items: [...itemsWithSection, ...newItemsFromAPI] },
+        {
+          ...list,
+          items: list.items.map((item) => {
+            const existingItem = newItemsFromAPI.find(
+              (it) => it.name === item.name
+            )
+            if (existingItem) {
+              return {
+                ...item,
+                realName: existingItem.realName,
+                section: existingItem.section,
+              }
+            }
+            return item
+          }),
+        },
         'update-api'
       )
     } catch (e) {
@@ -85,9 +115,10 @@ export const ItemsWithoutSection = {
       return true
     }
   },
-
   oninit(vnode) {
     const id = vnode.attrs.id
+    if (vnode.state.controller) vnode.state.controller.abort() // Annule la requête précédente
+    vnode.state.controller = new AbortController() // Créez un nouveau contrôleur
     vnode.state.search(id, vnode)
 
     subscribe((payload) => {
@@ -96,6 +127,8 @@ export const ItemsWithoutSection = {
       if (model !== 'shopList' || type !== 'update' || !shopList) return false
       if (shopList?.id !== id) return false
 
+      if (vnode.state.controller) vnode.state.controller.abort() // Annule la requête précédente
+      vnode.state.controller = new AbortController() // Créez un nouveau contrôleur
       vnode.state.search(shopList.id, vnode)
       return true
     })

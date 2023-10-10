@@ -241,10 +241,18 @@ export async function addItems(items) {
 
   for (const item of items) {
     // Vérifiez si l'élément existe déjà en utilisant l'index "name"
-    const existingItem = await getItemFromIndex(nameIndex, item.name)
+    const existingItem = await getItemFromIndex(
+      nameIndex,
+      item.name.toLowerCase()
+    )
     if (!existingItem) {
       // Si l'élément n'existe pas, ajoutez-le
-      store.add(item)
+      store.add({
+        name: item.name.toLowerCase(),
+        realName: item.realName.toLowerCase(),
+        section: item.section,
+        unity: item.unity,
+      })
     }
   }
 
@@ -277,14 +285,14 @@ export async function getItemByRealName(realName) {
   const transaction = idb.transaction([STORES.ITEMS.NAME], 'readonly')
   const store = transaction.objectStore(STORES.ITEMS.NAME)
   const nameIndex = store.index('realName')
-  return await getItemFromIndex(nameIndex, realName)
+  return await getItemFromIndex(nameIndex, realName.toLowerCase())
 }
 
 export async function getItemByName(realName) {
   const transaction = idb.transaction([STORES.ITEMS.NAME], 'readonly')
   const store = transaction.objectStore(STORES.ITEMS.NAME)
   const nameIndex = store.index('name')
-  return await getItemFromIndex(nameIndex, realName)
+  return await getItemFromIndex(nameIndex, realName.toLowerCase())
 }
 
 /**
