@@ -16,7 +16,7 @@ export const ShopListPage = {
         [
           m(
             'div',
-            { class: 'relative h-full ' },
+            { class: 'relative h-full' },
 
             m(
               'div',
@@ -27,7 +27,7 @@ export const ShopListPage = {
               m(ShopList)
             )
           ),
-          m('div', { class: 'flex justify-center' }, m(AddListButton)),
+          m('div', { class: 'flex justify-center ' }, m(AddListButton)),
         ]
       )
     )

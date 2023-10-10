@@ -26,11 +26,11 @@ export const Section = {
       m(
         'div',
         {
-          class: dc('flex gap-1 justify-between', 'item-center pl-1 pr-2', [
-            checked === total,
-            'text-sl-accent-green',
-            'text-sl-accent-blue',
-          ]),
+          class: dc(
+            'flex gap-1 justify-between cursor-pointer',
+            'item-center pl-1 pr-2',
+            [checked === total, 'text-sl-accent-green', 'text-sl-accent-blue']
+          ),
           onclick: () => {
             vnode.state.open = !vnode.state.open
           },
