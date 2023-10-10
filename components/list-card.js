@@ -45,6 +45,7 @@ export const ListCard = {
           m(
             'div',
             {
+              class: 'cursor-pointer',
               onclick: () => (vnode.state.open = 'delete'),
             },
             m(TrashIcon)
