@@ -78,7 +78,7 @@ export const Menu = {
               m(MenuLink, {
                 key: link.name,
                 link,
-                onclick: vnode.state.onLinkClick,
+                onclick: (vnode) => vnode.state?.onLinkClick(vnode),
               })
             ),
           m(
