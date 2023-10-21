@@ -49,29 +49,26 @@ export default async function search(req, res) {
         {
           content: `Tu dois faire correspondre les noms de produits suivants:\n${unknownArticles.join(
             '\n'
-          )}\navec les rayons suivants:\n${sections}.La réponse sera obligatoirement un JSON dans ce format:\n[["nom du produit","rayon","score de confiance entre 1 et 100","nom du produit corrigé, sans faute d'orthographe"]]`,
+          )}\navec les rayons suivants:\n${sections}.La réponse sera obligatoirement dans le format CSV:\n
+          nom du produit,rayon,score de confiance entre 1 et 100,nom du produit corrigé sans faute d'orthographe\n`,
 
           role: 'user',
         },
       ],
       model: 'gpt-3.5-turbo',
       max_tokens: 1500,
-      temperature: 0.7,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
+      temperature: 0.3,
     })
+    const lines = chatCompletion.choices[0].message.content.split('\n')
+    const products = lines.map((line) => line.split(','))
 
-    const response = JSON.parse(chatCompletion.choices[0].message.content)
-
-    if (!Array.isArray(response))
-      return res.status(400).json({ result: 'erreur pour AI' })
-
-    const newItems = response
-      .filter((item) => Array.isArray(item) && item.length >= 3)
+    const items = products
+      .filter((item) => item.length === 4)
+      .map((line) => [line[0], line[1], parseInt(line[2]), line[3]])
       .sort((a, b) => b[2] - a[2])
       .reduce((acc, [name, section, _score, correctedName]) => {
         const isExist = acc.find(([findName]) => name === findName)
+
         if (isExist) return acc
         acc.push([name, section, correctedName])
         return acc
@@ -79,8 +76,8 @@ export default async function search(req, res) {
 
     // On peut ajouter les nouveaux articles en base de données
 
-    const filteredValues = newItems.map(() => `(?, ?,?)`).join(', ')
-    const filteredPlaceholders = newItems.flat()
+    const filteredValues = items.map(() => `(?, ?,?)`).join(', ')
+    const filteredPlaceholders = items.flat()
 
     const insertQuery = `INSERT IGNORE INTO articles (name, section, realName) VALUES ${filteredValues}`
 
@@ -97,7 +94,7 @@ export default async function search(req, res) {
     // Début des contrôles : on vérifie que la réponse est un tableau
     return res.status(200).json([
       ...existingArticles,
-      ...newItems.map((item) => ({
+      ...items.map((item) => ({
         name: item[0],
         section: item[1],
         realName: item[2],
