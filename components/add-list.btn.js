@@ -8,7 +8,7 @@ export const AddListButton = {
   async createList() {
     const list = await getShopLists()
     const newList = await addShopList({
-      name: `Nouvelle liste (${list.length + 1})`,
+      name: `liste (${new Date().toLocaleString('fr-FR')})`,
       items: [],
       state: 'brouillon',
     })
