@@ -5,6 +5,7 @@ import { supermarketSections } from '../data/sections.js'
 
 // Constantes -----------------------------------------------------------------
 export const maxDuration = 120
+
 const openai = new OpenAIApi({
   apiKey: process.env.OPENAI_API_KEY,
 })
@@ -12,7 +13,7 @@ const openai = new OpenAIApi({
 export default async function search(req, res) {
   const articleNames = req.body
 
-  const connection = await db()
+  const connection = await db(res)
 
   // Recherche des articles en base de données
   const existingArticles = await new Promise((resolve, reject) => {
@@ -22,7 +23,7 @@ export default async function search(req, res) {
       (searchErr, searchResults) => {
         if (searchErr) {
           console.error(searchErr)
-          reject(searchErr)
+          return res.status(400).json({ result })
         }
         resolve(searchResults)
       }
@@ -55,10 +56,12 @@ export default async function search(req, res) {
           role: 'user',
         },
       ],
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-3.5-turbo-1106',
       max_tokens: 1500,
       temperature: 0.3,
     })
+
+    console.log('OK GPT')
     const lines = chatCompletion.choices[0].message.content.split('\n')
     const products = lines.map((line) => line.split(','))
 
@@ -81,15 +84,18 @@ export default async function search(req, res) {
 
     const insertQuery = `INSERT IGNORE INTO articles (name, section, realName) VALUES ${filteredValues}`
 
+    console.log('QUERY')
     await new Promise((resolve, reject) => {
       connection.query(insertQuery, filteredPlaceholders, (err, result) => {
         if (err) {
           console.error(err)
-          reject(err)
+          return res.status(400).json({ result })
         }
         resolve(result)
       })
     })
+
+    console.log('END QUERY')
 
     // Début des contrôles : on vérifie que la réponse est un tableau
     return res.status(200).json([
