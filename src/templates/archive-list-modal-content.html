@@ -1,0 +1,14 @@
+<template id="archiveListModalContent">
+  <div class="max-w-md">
+    <p class="text-center text-md">
+      Êtes-vous sûr de vouloir <span class="text-sl-valid">archiver</span> la liste<br /><span data-type="list-name"
+        class="text-sl-primary"></span> ?
+    </p>
+    <div class="flex justify-between gap-2 mt-2 w-full">
+      <button class="bg-sl-primary text-white p-2 rounded-md" data-type="confirm"
+        _="on click call app.helpers.archiveList(@data-id)">OUI</button>
+      <button class="bg-sl-status-error text-white p-2 rounded-md"
+        _="on click toggle the *display of the closest  <diag/>">NON</button>
+    </div>
+  </div>
+</template>

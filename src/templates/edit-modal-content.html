@@ -1,0 +1,81 @@
+<template id="editModalContent">
+  <div>
+
+    <form class="flex flex-col gap-3 max-w-md" _="
+        on submit halt the event
+        call app.helpers.updateItem(me)
+      ">
+
+      <div>
+        <input disabled name="name" class="w-full" />
+      </div>
+
+      <div class="grid grid-cols-[1fr_2fr] gap-2">
+
+        <div class="flex gap-1">
+          <div
+            class="px-2 py-1 text-xl bg-sl-primary text-white rounded-md font-bold cursor-pointer flex items-center justify-center"
+            _="
+            on click
+            set :quantity to value of the next  <input /> 
+            if :quantity <= 10 then decrement :quantity
+            else if :quantity > 10 and :quantity <= 100 then set :quantity to Number(:quantity) - 10
+            else if :quantity > 100 then set :quantity to Number(:quantity) - 100
+            end
+            set value of the next  <input /> to :quantity
+          ">
+            -</div>
+          <input type="number" value="1" class="w-full" name="quantity" />
+          <div
+            class="px-2 py-1 text-xl bg-sl-primary text-white rounded-md font-bold cursor-pointer flex items-center justify-center"
+            _="
+              on click 
+              set :quantity to value of the previous  <input /> 
+              if :quantity >= 10 and :quantity < 100 then set :quantity to Number(:quantity) + 10
+              else if :quantity >= 100 then set :quantity to Number(:quantity) + 100
+              else increment :quantity
+              end
+              set value of the previous  <input /> to :quantity
+          ">
+            +</div>
+        </div>
+
+        <select name="unity">
+          <option value="pièce">pièce</option>
+          <option value="gramme">gramme</option>
+          <option value="kilogramme">kilogramme</option>
+          <option value="litre">litre</option>
+          <option value="millilitre">millilitre</option>
+          <option value="paquet">paquet</option>
+          <option value="boîte">boîte</option>
+          <option value="bouteille">bouteille</option>
+          <option value="canette">canette</option>
+        </select>
+
+      </div>
+      <select name="section">
+        <option value="Animaux de Compagnie">Animaux de Compagnie</option>
+        <option value="Beauté et Hygiène">Beauté et Hygiène</option>
+        <option value="Boissons">Boissons</option>
+        <option value="Boulangerie et Pâtisserie">Boulangerie et Pâtisserie</option>
+        <option value="Bricolage">Bricolage</option>
+        <option value="Électronique et Électroménager">Électronique et Électroménager</option>
+        <option value="Entretien et Nettoyage">Entretien et Nettoyage</option>
+        <option value="Épicerie Salée">Épicerie Salée</option>
+        <option value="Épicerie Sucrée">Épicerie Sucrée</option>
+        <option value="Espace Presse">Espace Presse</option>
+        <option value="Fournitures de Bureau et Scolaires">Fournitures de Bureau et Scolaires</option>
+        <option value="Fruits et Légumes">Fruits et Légumes</option>
+        <option value="Jeux Vidéo et Consoles">Jeux Vidéo et Consoles</option>
+        <option value="Maison et Jardin">Maison et Jardin</option>
+        <option value="Produits Frais">Produits Frais</option>
+        <option value="Produits pour Bébés">Produits pour Bébés</option>
+        <option value="Produits Surgelés">Produits Surgelés</option>
+        <option value="Textiles">Textiles</option>
+      </select>
+      <div class="flex justify-end">
+        <button type="submit" class="bg-sl-primary text-white rounded-md py-1 px-2">Modifier</button>
+      </div>
+    </form>
+  </div>
+</template>
