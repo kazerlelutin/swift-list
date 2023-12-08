@@ -1,0 +1,19 @@
+<template id="listTitleModalContent">
+  <div>
+
+    <form class="flex flex-col gap-3 max-w-md" _="
+        on submit halt the event
+        log me
+        call app.helpers.updateTitle(me)
+      ">
+
+      <div class="text-sl-primary min-w-[40vh]">
+        <input name="title" class="w-full" />
+      </div>
+
+      <div class="flex justify-end">
+        <button type="submit" class="bg-sl-primary text-white rounded-md py-1 px-2">Modifier</button>
+      </div>
+    </form>
+  </div>
+</template>

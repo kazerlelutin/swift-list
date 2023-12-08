@@ -1,0 +1,38 @@
+<template id="itemReady">
+    <div>
+        <article class="flex gap-1 bg-white p-3">
+            <input type="checkbox" data-type="checkbox" class="cursor-pointer" _="
+                on click toggle .line-through on next <label /> 
+                set :checked to Number(innerText of the previous <counter />)
+
+                then 
+                if me.checked increment :checked
+                else decrement :checked
+                end
+
+                then set innerText of the previous <counter /> to :checked 
+
+                set :counter to Number(innerText of the previous <counter />)
+                set :counterTotal to Number(innerText of the previous <counter-total />)
+
+                then
+
+                if :counter is equal :counterTotal
+                then set @finish of the closest  <section /> to true
+                else set @finish of the closest  <section /> to false
+                end
+
+                then call app.helpers.toggleItem(me.id)" />
+
+            <label data-type="text" class="flex-1 cursor-pointer flex gap-1 justify-between">
+                <div class="text-sm" data-type="item-name">
+
+                </div>
+                <div class="text-sm" data-type="item-quantity">
+
+                </div>
+            </label>
+
+        </article>
+    </div>
+</template>

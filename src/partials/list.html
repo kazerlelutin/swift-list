@@ -1,0 +1,47 @@
+<div class="grid grid-rows-[auto_1fr_auto] gap-3 bg-sl-bg h-[100dvh]">
+  <!-- Ici, on remonte le script _ pour éviter les boucles infinies -->
+  <header class="bg-sl-primary text-white p-2 grid grid-cols-[auto_1fr] gap-3 items-center relative" end ">
+    <a href=" home" aria-label="Retour à l'accueil"
+    class="cursor-pointer hover:fill-sl-secondary fill-white transition duration-200 h-full flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16"
+      viewBox="0 0 512 512"><!--!Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.-->
+      <path
+        d="M22.6 278.6L0 256l22.6-22.6 128-128 22.6-22.6L218.5 128l-22.6 22.6L122.5 224 480 224l32 0 0 64-32 0-357.5 0 73.4 73.4L218.5 384l-45.3 45.3-22.6-22.6-128-128z" />
+    </svg>
+    </a>
+    <span my-state="..." class="fixed" _="
+    on load 
+    call app.helpers.createListAction() then put result into #actions
+    then
+    call app.helpers.getList() 
+    if result is empty then put 'Liste introuvable' into me
+    end
+
+    set innerHTML of the next <h1 /> to result.name
+    set @my-state to result.state
+    set $listId to result.name   
+      
+    if result.sections.length > 0
+      then 
+        set innerHTML of the next <main /> to ``
+        for section in result.sections
+          call app.helpers.insertSection(section.name, section.items)
+          put result at the end of next <main />
+        end
+      else put `
+        <div class='flex flex-col justify-center items-center h-full'>
+          <p class='text-xl text-center'>Votre liste est vide</p>
+          <p class='text-center'>Ajoutez un article pour commencer</p>
+        </div>
+      ` into the next <main />
+    end"></span>
+    <h1 class=" text-md first-letter:uppercase max-w-[80%] flex gap-2 items-center fill-white" id="page-title">
+      ...
+    </h1>
+    <div id="state" class="absolute right-1 bottom-[-4px] text-sm uppercase opacity-70">
+    </div>
+  </header>
+  <main class="p-2 flex flex-col gap-2 overflow-y-auto mx-auto md:w-[40vw] w-full">
+  </main>
+  <div class="flex justify-center gap-2 p-1" id="actions"></div>
+</div>

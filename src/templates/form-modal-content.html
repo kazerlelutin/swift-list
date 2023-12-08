@@ -1,0 +1,54 @@
+<template id="formModalContent">
+  <div>
+
+    <form class="flex flex-col gap-2 max-w-md" id="add-item" _="
+        on submit halt the event
+        call app.helpers.addItem(#quantity.value, #unity.value, #article.value)
+      ">
+
+      <div class="grid grid-cols-[1fr_2fr] gap-2">
+
+        <div class="flex gap-1">
+          <div
+            class="px-2 py-1 text-xl bg-sl-primary text-white rounded-md font-bold cursor-pointer flex items-center justify-center"
+            _="
+            on click 
+            if #quantity.value <= 10 then decrement #quantity.value
+            else if #quantity.value > 10 and #quantity.value <= 100 then set #quantity.value to Number(#quantity.value) - 10
+            else if #quantity.value > 100 then set #quantity.value to Number(#quantity.value) - 100
+            end
+          ">
+            -</div>
+          <input type="number" value="1" class="w-full" id="quantity" name="quantity" />
+          <div
+            class="px-2 py-1 text-xl bg-sl-primary text-white rounded-md font-bold cursor-pointer flex items-center justify-center"
+            _="
+              on click 
+              if #quantity.value >= 10 and #quantity.value < 100 then set #quantity.value to Number(#quantity.value) + 10
+              else if #quantity.value >= 100 then set #quantity.value to Number(#quantity.value) + 100
+              else increment #quantity.value
+              end
+          ">
+            +</div>
+        </div>
+
+        <select name="unity" id="unity">
+          <option value="pièce">pièce</option>
+          <option value="gramme">gramme</option>
+          <option value="kilogramme">kilogramme</option>
+          <option value="litre">litre</option>
+          <option value="millilitre">millilitre</option>
+          <option value="paquet">paquet</option>
+          <option value="boîte">boîte</option>
+          <option value="bouteille">bouteille</option>
+          <option value="canette">canette</option>
+        </select>
+
+      </div>
+      <input type="text" placeholder="Article" name="article" id="article" />
+      <div class="flex justify-end">
+        <button type="submit" class="bg-sl-primary text-white rounded-md py-1 px-2">Ajouter</button>
+      </div>
+    </form>
+  </div>
+</template>

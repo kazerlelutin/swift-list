@@ -1,7 +1,6 @@
-import { defineConfig } from 'vite'
-
-export default defineConfig({
-  css: {
-    postcss: './postcss.config.js',
+export default {
+  esbuild: {
+    minifyIdentifiers: false,
+    keepNames: true,
   },
-})
+}
