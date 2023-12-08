@@ -93,9 +93,9 @@ export async function insertSection(sectionName, items) {
       const delModalContent = template("delItemModalContent")
 
       delModalContent.querySelector("[data-type='list-name']").innerText = itemName
-      delModalContent.querySelector("[data-type='confirm']")
+      delModalContent.querySelector("[data-type='confirm']").setAttribute("data-name", itemName)
 
-      const modal = createModal(`${item.id}-del`, delModalContent, template("trashcan").innerHTML)
+      const modal = createModal(`${item.name}-del`, delModalContent, template("trashcan").innerHTML)
 
       delEl.appendChild(modal)
 
@@ -119,7 +119,11 @@ export async function insertSection(sectionName, items) {
           .setAttribute("selected", true)
       }
 
-      const modalEdit = createModal(`${item.id}-del`, editModalContent, template("pen").innerHTML)
+      const modalEdit = createModal(
+        `${item.name}-edit`,
+        editModalContent,
+        template("pen").innerHTML
+      )
 
       editEl.appendChild(modalEdit)
 

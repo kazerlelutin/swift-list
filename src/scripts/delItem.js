@@ -15,7 +15,7 @@ export async function delItem(itemName) {
 
   updateShopList({
     ...list,
-    items: list.items.filter((item) => item.name !== itemName),
+    items: list.items.filter((item) => item.realName !== itemName),
   })
 
   router()
