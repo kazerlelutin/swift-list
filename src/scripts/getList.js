@@ -54,7 +54,7 @@ export async function getList() {
       return a.name.localeCompare(b.name)
     })
 
-  if (state === STATES.DRAFT) {
+  if (state === STATES.DRAFT && sections.length > 0) {
     const pen = template("pen")
     const penEl = document.createElement("span")
     const content = template("listTitleModalContent")
