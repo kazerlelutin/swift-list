@@ -1,5 +1,6 @@
 import { init } from "./libs/init"
 import "./public/globals.css"
+import pkg from "./package.json"
 
 // Register service worker -----------------------------------------------------
 if ("serviceWorker" in navigator) {
@@ -14,6 +15,8 @@ if ("serviceWorker" in navigator) {
     )
   })
 }
+
+console.log("VERSION:", pgk?.version)
 
 // Initialise l'application une fois que le DOM est complètement chargé.
 document.addEventListener("DOMContentLoaded", init)
