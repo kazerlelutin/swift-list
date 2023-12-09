@@ -11,7 +11,7 @@
 - 📝 Créez et organisez vos listes de courses en quelques clics.
 - 🛍️ Trouvez rapidement les produits grâce à la recherche automatisée des rayons.
 - ✅ Cochez les articles achetés et suivez votre progression.
-- 🔗 Partagez vos listes avec d'autres personnes pour les courses en famille ou en colocation grâce au QR code.
+- 🔗 Partagez vos listes avec d'autres personnes pour les courses en famille ou en colocation grâce au QR code. (pas encore disponible)
 - 🔄 Les listes sont générées dynamiquement et ne sont pas enregistrées en base, garantissant ainsi la confidentialité de vos données.
 
 ## Installation
@@ -26,12 +26,19 @@
 
 L'application est prévue pour être déployée sur [Vercel](https://vercel.com), une plateforme de déploiement cloud. Vous pouvez facilement déployer votre application Swift List sur Vercel en utilisant les options de déploiement proposées par la plateforme.
 
-De plus, Vercel propose des bases de données intégrées, comme [Vercel Serverless Functions](https://vercel.com/docs/serverless-functions/introduction) ou [Vercel PostgreSQL](https://vercel.com/docs/storage/vercel-postgres). Cependant, l'utilisation de ces bases de données n'est pas obligatoire et vous pouvez choisir d'utiliser d'autres solutions de base de données si vous le souhaitez.
-
 ## Technologies utilisées
 
-- Mithril.js - Framework JavaScript
-- [Tailwind CSS](https://tailwindcss.com) - Framework CSS utilitaire
+### front
+
+- [Vite](https://vitejs.dev/) - Un outil de construction front-end extrêmement rapide, optimisé pour les projets modernes et les frameworks de développement web.
+- [\_hyperscript](https://hyperscript.org/) - Un langage de script innovant pour manipuler dynamiquement le DOM, offrant une interactivité accrue et une meilleure expérience utilisateur.
+- [Tailwind CSS](https://tailwindcss.com) - Framework CSS utilitaire pour des designs personnalisables et réactifs.
+
+### back
+
+- [Vercel](https://vercel.com/docs/functions/serverless-functions) - Plateforme pour les fonctions serverless, permettant un déploiement rapide et une intégration aisée avec d'autres services.
+- [ChatGPT](https://openai.com/) - API d'intelligence artificielle d'OpenAI utilisée pour l'analyse et le traitement des requêtes liées aux listes de courses.
+- [Mongoose](https://mongoosejs.com/) - Bibliothèque de modélisation pour MongoDB, utilisée pour stocker et gérer les données des rayons trouvés par l'IA, optimisant ainsi les recherches futures.
 
 ## Auteur
 
