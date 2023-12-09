@@ -16,7 +16,7 @@ if ("serviceWorker" in navigator) {
   })
 }
 
-console.log("VERSION:", pgk?.version)
+console.log("VERSION:", pkg?.version)
 
 // Initialise l'application une fois que le DOM est complètement chargé.
 document.addEventListener("DOMContentLoaded", init)
