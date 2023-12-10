@@ -31,9 +31,9 @@ export async function createListAction() {
   }
 
   if (state === STATES.DRAFT) {
-    const buttonValidList = `<div class="${["bg-sl-valid", ...classes].join(
-      " "
-    )}">Valider la liste</div>`
+    const buttonValidList = `<div class="${["bg-sl-valid", ...classes].join(" ")}" ${
+      list.items.length === 0 ? "data-disabled title='Vous devez ajouter au moins un article'" : ""
+    }>Valider la liste</div>`
     const buttonItem = `<div class="${["bg-sl-primary", ...classes].join(
       " "
     )}">Ajouter un article</div>`
