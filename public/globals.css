@@ -131,3 +131,8 @@ section[data-section="ai"] header {
   background: theme("colors.sl.brain");
   color: theme("colors.white");
 }
+
+[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
