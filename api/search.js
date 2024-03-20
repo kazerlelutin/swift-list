@@ -47,7 +47,7 @@ export default async function search(req, res) {
       ],
       model: "gpt-3.5-turbo-1106",
       max_tokens: 1500,
-      temperature: 0.3,
+      temperature: 0.4,
     })
 
     const lines = chatCompletion.choices[0].message.content.split("\n")
