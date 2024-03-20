@@ -71,4 +71,8 @@ export const supermarketSections = [
     name: "Fournitures de Bureau et Scolaires",
     description: "Crayons et stylos, cahiers, articles d'art",
   },
+  {
+    name: "Divers - à classer",
+    description: "Aucune catégorie spécifique",
+  },
 ]
