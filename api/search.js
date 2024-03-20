@@ -18,7 +18,10 @@ export default async function search(req, res) {
   await mongoDb()
 
   const existingItems = await Items.find({
-    $or: [{ name: { $in: itemsNames } }, { realName: { $in: itemsNames } }],
+    $or: [
+      { name: { $in: itemsNames.map((item) => item.toLowerCase()) } },
+      { realName: { $in: itemsNames } },
+    ],
   })
 
   // Si tout les articles sont connus, on renvoie la liste des articles
@@ -55,7 +58,7 @@ export default async function search(req, res) {
     const items = products
       .filter((item) => item.length === 3)
       .reduce((acc, [name, section, realName]) => {
-        const alreadyExist = acc.find((item) => item.name === name)
+        const alreadyExist = acc.find((item) => item.name?.toLowerCase() === name?.toLowerCase())
         if (!alreadyExist) acc.push({ name, section, realName })
         return acc
       }, [])
