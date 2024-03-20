@@ -20,7 +20,7 @@ export default async function search(req, res) {
   const existingItems = await Items.find({
     $or: [
       { name: { $in: itemsNames.map((item) => item.toLowerCase()) } },
-      { realName: { $in: itemsNames } },
+      { realName: { $in: itemsNames.map((item) => item.toLowerCase()) } },
     ],
   })
 
@@ -43,7 +43,7 @@ export default async function search(req, res) {
           content: `Tu dois faire correspondre les noms des articles suivants:\n${itemsNamesToSearch.join(
             "\n"
           )}\navec les rayons suivants:\n${sections}.La réponse sera exclusivement dans le format CSV:\n
-          nom du produit,rayon,nom du produit corrigé sans faute d'orthographe\n`,
+          nom du produit,rayon,nom du produit corrigé sans faute d'orthographe. Si tu ne trouves pas le rayon exact, tu peux mettre un rayon similaire.`,
 
           role: "user",
         },
